@@ -2,9 +2,14 @@
 
 class Matrix
 {
+    protected $charArray = [
+        "- ", "* ", "% ", "& ", "# ", "@ ", "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0 ",
+        "ア", "ィ", "イ", "ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "ガ", "キ", "ギ", "ク", "グ", "ケ", "ゲ", "コ",
+        "ゴ", "サ", "ザ", "シ", "ジ", "ス", "ズ", "セ", "ゼ", "ソ", "ゾ", "タ", "ダ", "チ", "ヂ", "ッ", "ツ", "ヅ", "テ"
+    ];
+    protected $colorArray = ["22", "28"];
     protected $lineArray;
-    protected $lineCount = 500;
-    protected $charArray = ["-", "*", "%", "&", "#", "@", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    protected $lineCount = 750;
     protected $speed = 75000000;
     protected $screenWidth = 125;
 
@@ -17,7 +22,7 @@ class Matrix
 
     public function enter()
     {
-        $this->setColorGreen();
+        $this->setColorGreens();
         $this->clearScreen();
         $this->setTerminalWidth();
         $this->fillScreen();
@@ -38,24 +43,29 @@ class Matrix
     protected function writeLine()
     {
         foreach ($this->lineArray as $key => $line) {
-            if ($line == 1) {
+            if ($line == 1 || $line == 2) {
+
+                if ($line == 2) {
+                    $this->setColorLightGreen();
+                    $this->writeCharacter();
+                    $this->lineArray[$key] = 1;
+                    $this->setColorGreens();
+                } else {
+                    $this->writeCharacter();
+                }
 
                 $rand = rand(1, 30);
 
                 if ($rand == 1) {
-                    $this->setColorLightGreen();
-                    $this->writeCharacter();
                     $this->lineArray[$key] = 0;
-                    $this->setColorGreen();
-                } else {
-                    $this->writeCharacter();
                 }
+
             } else {
-                echo " ";
+                echo "  ";
                 $randTwo = rand(1, 60);
 
                 if ($randTwo == 1) {
-                    $this->lineArray[$key] = 1;
+                    $this->lineArray[$key] = 2;
                 }
             }
         }
@@ -89,13 +99,13 @@ class Matrix
 
     protected function setColorLightGreen()
     {
-        echo "\033[1m";
-        echo "\033[1;32m";
+        echo "\033[38;5;15m";
     }
 
-    protected function setColorGreen()
+    protected function setColorGreens()
     {
-        echo "\033[0;32m";
+        $colorCode = $this->colorArray[array_rand($this->colorArray)];
+        echo "\033[38;5;".$colorCode."m";
     }
 
     protected function setTerminalWidth()
