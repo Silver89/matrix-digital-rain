@@ -1,5 +1,5 @@
 # Enter the Matrix
-A PHP version of the classic [Matrix digital rain](https://en.wikipedia.org/wiki/Matrix_digital_rain)
+A 'just for fun' PHP console version of the classic [Matrix digital rain](https://en.wikipedia.org/wiki/Matrix_digital_rain)
 
 ## Motivation
 The Matrix code is very well known from the classic films so I thought I'd bring it to life in command line php.
@@ -10,7 +10,7 @@ It's simple to run, just open up a terminal and run the index.php file - it's se
 ```
 <?php
 
-require_once 'autoload.php';
+require 'matrix.php';
 
 $matrix = new Matrix();
 $matrix->enter();

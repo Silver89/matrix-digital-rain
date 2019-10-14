@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class Matrix
+ */
 class Matrix
 {
     protected $charArray = [
